@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlth5ysi54y86"]
+
+[ext_resource type="PackedScene" uid="uid://bt8exeow5fodb" path="res://scenes/player.tscn" id="1_n0iwc"]
+[ext_resource type="Texture2D" uid="uid://biegq35b5itfn" path="res://assets/BG.jpg" id="2_blklu"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="2_e6qsc"]
+[ext_resource type="PackedScene" uid="uid://sdkfet4si08g" path="res://scenes/Wall Top.tscn" id="3_yf6mh"]
+[ext_resource type="PackedScene" uid="uid://dqi3f75s08u2r" path="res://scenes/Wall Bottom.tscn" id="4_tf6g2"]
+
+[node name="NewLevel" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1_n0iwc")]
+position = Vector2(250, 320)
+script = ExtResource("2_e6qsc")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background Wall" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(700, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background Wall"]
+position = Vector2(-30, -37)
+scale = Vector2(0.6875, 0.693158)
+texture = ExtResource("2_blklu")
+centered = false
+
+[node name="Wall" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1250, 0)
+
+[node name="Ice Wall" parent="ParallaxBackground/Wall" instance=ExtResource("3_yf6mh")]
+position = Vector2(574, 658)
+
+[node name="Ice Wall2" parent="ParallaxBackground/Wall" instance=ExtResource("4_tf6g2")]
+position = Vector2(597, 1)

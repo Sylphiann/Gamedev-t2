@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://dlth5ysi54y86"]
+
+[ext_resource type="PackedScene" uid="uid://bt8exeow5fodb" path="res://scenes/player.tscn" id="1_n0iwc"]
+[ext_resource type="Texture2D" uid="uid://biegq35b5itfn" path="res://assets/BG.jpg" id="2_blklu"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="2_e6qsc"]
+[ext_resource type="Script" path="res://scenes/camera_2d.gd" id="3_4w43q"]
+[ext_resource type="Script" path="res://scenes/parallax_background.gd" id="4_52bli"]
+[ext_resource type="PackedScene" uid="uid://sdkfet4si08g" path="res://scenes/Wall.tscn" id="6_3elwr"]
+[ext_resource type="PackedScene" uid="uid://21e61ghdx1sd" path="res://scenes/rocks.tscn" id="7_28fn7"]
+[ext_resource type="PackedScene" uid="uid://drkj3ipec6qhx" path="res://scenes/vortex.tscn" id="8_smyru"]
+[ext_resource type="Script" path="res://scenes/vortex.gd" id="9_3ulsa"]
+[ext_resource type="Script" path="res://scenes/wall.gd" id="9_ym4dl"]
+
+[sub_resource type="GDScript" id="GDScript_f6opl"]
+script/source = "extends ParallaxLayer
+
+const SPEED = 300.0
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="NewLevel" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1_n0iwc")]
+position = Vector2(250, 320)
+platform_wall_layers = 255
+script = ExtResource("2_e6qsc")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+script = ExtResource("4_52bli")
+
+[node name="Camera2D" type="Camera2D" parent="ParallaxBackground"]
+position = Vector2(550, 320)
+script = ExtResource("3_4w43q")
+
+[node name="Background Wall" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1150, 0)
+script = SubResource("GDScript_f6opl")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Background Wall"]
+position = Vector2(-30, -37)
+scale = Vector2(1.12988, 0.693158)
+texture = ExtResource("2_blklu")
+centered = false
+
+[node name="Rocks" parent="." instance=ExtResource("7_28fn7")]
+position = Vector2(2054, 187)
+
+[node name="Rocks2" parent="." instance=ExtResource("7_28fn7")]
+position = Vector2(2731, 510)
+
+[node name="Rocks3" parent="." instance=ExtResource("7_28fn7")]
+position = Vector2(3236, 296)
+
+[node name="Rocks4" parent="." instance=ExtResource("7_28fn7")]
+position = Vector2(1586, 369)
+
+[node name="Rocks5" parent="." instance=ExtResource("7_28fn7")]
+position = Vector2(4011, 145)
+
+[node name="Rocks6" parent="." instance=ExtResource("7_28fn7")]
+position = Vector2(3768, 495)
+
+[node name="Vortex" parent="." instance=ExtResource("8_smyru")]
+position = Vector2(1000, 322)
+script = ExtResource("9_3ulsa")
+
+[node name="Wall" type="Node2D" parent="."]
+script = ExtResource("9_ym4dl")
+
+[node name="Wall Bot" parent="Wall" instance=ExtResource("6_3elwr")]
+position = Vector2(557, 659)
+
+[node name="Wall Top" parent="Wall" instance=ExtResource("6_3elwr")]
+position = Vector2(552, 5)
